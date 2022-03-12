@@ -11,32 +11,53 @@ function App() {
   
   function changeHandler(e){ 
     setName(e.target.value);
+
 }
+
+const listChangeHandlere = (event) => {
+  setListValue(event.target.value)
+  console.log(event.target.value)
+}
+
 
 function handleChange()
 {
-  setAddMsg(true);
+  if(addmsg)
+  {
+  setAddMsg(false);
+setButtonMsg('Show Form');
+  }
+  else{
+    setAddMsg(true);
+    setButtonMsg('Hide Form');
+  }
 }
-  const [name, setName] = useState('test');
-  const [addmsg, setAddMsg] = useState(false);
-  const [selectValue, setSelectValue] = useState(['shashank','singh']);
-
-  const options = [
-    {value: 'value-1', text: 'text-1'},
-    {value: 'value-2', text: 'text-2'},
-    {value: 'value-3', text: 'text-3'}
+const options = [
+  {value: 'Honda', text: 'CRV'},
+  {value: 'Toyata', text: 'RAV4'},
+  {value: 'BMW', text: 'X3'}
 ];
+const [name, setName] = useState('This is place holder value ');
+const [addmsg, setAddMsg] = useState(false);
+const [listValue, setListValue] = useState(options[0].value);
+const [buttonMsg, setButtonMsg] = useState('show form');
   return (
-    <div >
+    <div className='container' >
+<h4>REACT BASICS(props|state|form)</h4>
 
 { addmsg? <Editor text={name}  onChange={changeHandler}/>:null}
 
+<h5>Car list</h5>
+    <Dropdown list={options} onChange={listChangeHandlere} value={listValue}/>
+    <p>Test Area Value This is at controller-  <b> {name}</b></p>
 
-    <p>{name}</p>
-    <button onClick={handleChange}>Sample</button>
-    <Dropdown list={options}/>
+    <p>Select Value This is at controller- <b> {listValue}</b></p>
+    <button onClick={handleChange}>{buttonMsg}</button>
     </div>
     
   );
 }
+
+
+
 export default App;
